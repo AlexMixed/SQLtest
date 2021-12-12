@@ -1,0 +1,21 @@
+--Задача 1. Найти самый дорогой товар. Вывести имя товара и его цену
+SELECT goods.name, prices.value FROM goods 
+JOIN Prices ON Prices.goods_id=Goods.id   
+WHERE prices.value = (SELECT MAX(prices.value) FROM Prices)
+--Задача 2. Найти товары с нулевым остатком. Вывести имя товара и его цену
+SELECT goods.name, quantity.value FROM goods
+JOIN quantity ON quantity.goods_id=Goods.id   
+WHERE Quantity.value = 0 
+--Задача 3. Найти производителя с самой большой средней ценой за товары. Вывести имя производителя и среднюю стоимость
+SELECT manufacturer.name, ROUND(AVG(prices.value), 2) AS Result FROM goods
+JOIN prices ON prices.goods_id = Goods.id
+JOIN suppliers ON Suppliers.id = Goods.supplier_id
+JOIN manufacturer ON manufacturer.id = suppliers.manufacturer_id
+GROUP BY manufacturer.name
+order by result DESC limit 1
+--Задача 4. Найти все товары производителей из Москвы. Вывести имена товаров, их цены и имена производителей
+SELECT goods.name, prices.value, manufacturer.name FROM goods
+INNER JOIN prices ON goods.id = prices.goods_id
+INNER JOIN suppliers ON goods.supplier_id = suppliers.id
+INNER JOIN manufacturer ON manufacturer.id = suppliers.manufacturer_id
+WHERE manufacturer.location = 'Moscow'

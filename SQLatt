@@ -15,7 +15,7 @@ GROUP BY manufacturer.name
 order by result DESC limit 1
 --Задача 4. Найти все товары производителей из Москвы. Вывести имена товаров, их цены и имена производителей
 SELECT goods.name, prices.value, manufacturer.name FROM goods
-INNER JOIN prices ON goods.id = prices.goods_id
-INNER JOIN suppliers ON goods.supplier_id = suppliers.id
-INNER JOIN manufacturer ON manufacturer.id = suppliers.manufacturer_id
+LEFT JOIN prices ON goods.id = prices.goods_id
+LEFT JOIN suppliers ON goods.supplier_id = suppliers.id
+LEFT JOIN manufacturer ON manufacturer.id = suppliers.manufacturer_id
 WHERE manufacturer.location = 'Moscow'
